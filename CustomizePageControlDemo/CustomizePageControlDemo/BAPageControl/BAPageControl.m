@@ -31,10 +31,12 @@
         
         NSAssert([style.dotViewClass isSubclassOfClass:[BABaseDotView class]], @"自定义的小圆点类必须继承自BABaseDotView");
         
-        _style = style;
-        
         // 基础设置
-        [self basicSetupWithPosition:_style.position numberOfPages:numberOfPages];
+        _currentIndex = 0;
+        _style = style;
+        _totalDots = numberOfPages ;
+        _dots = [NSMutableArray arrayWithCapacity:numberOfPages];
+        [self setBackgroundColor:[UIColor orangeColor]];
         
         // 初始化子视图
         [self initCustomizedViewWithCustomizeViewClass:_style.dotViewClass];
@@ -47,20 +49,6 @@
         
     }
     return self ;
-}
-
-#pragma mark - Basic Setup
-
-/**
- *  初始值设置
- */
-- (void)basicSetupWithPosition:(BAPageControlPosition)position numberOfPages:(NSInteger)numberOfPages
-{
-    // 初始化设置 , 默认选中的索引是0
-    _currentIndex = 0;
-    _totalDots = numberOfPages ;
-    _dots = [NSMutableArray arrayWithCapacity:numberOfPages];
-    [self setBackgroundColor:[UIColor orangeColor]];
 }
 
 #pragma mark - Configure Subviews
